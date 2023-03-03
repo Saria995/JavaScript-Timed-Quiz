@@ -1,0 +1,65 @@
+/*Body Styling*/
+body {
+    background-color: #fdfdfd;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+  }
+/*header styling which includes the view high score button hover*/
+  header {
+    display: flex;
+    justify-content: space-between;
+    /*background-color: black;*/
+    color: black;
+    padding: 3vh;
+  }    
+
+  .title {
+    text-align: left;
+    font-size: 35px;
+}
+
+
+  a.highscorelink {
+    order: none;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 8px #f9f8fc;
+  }
+
+  time {
+    display: flex;
+    justify-content: space-between;
+    min-width: 85px;
+    position: absolute;
+    top: 30px;
+    right: 50px;
+  }
+
+/*Mid content section which includes the quiz*/
+.container {
+    display: block;
+    border-color: rgb(85, 129, 155) ;
+    border-radius: 12%;
+    margin: 100px auto;
+    text-align: left;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 60vw;
+    padding: 50px;
+    background-color: #ebe7dc;
+}
+
+/*Overall Button styling*/
+button{
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 8px rgb(85, 129, 155);
+    background-color: rgb(132, 159, 182);
+    font-weight: bolder;
+}
+
+button:hover{
+   order: none;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 8px #f9f8fc;
+}

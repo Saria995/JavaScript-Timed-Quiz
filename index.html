@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Assets/css/style.css"/>
+    <title>JavaScript Quiz</title>
+</head>
+<body>
+    <!-- Header section includes link to view high scores and the timer-->
+    <header>
+            <a class="highscoreLink" onclick= 'getScore()' href="#">
+            <h4>View Highscore</h4>
+        </a>
+            <time>Time: <span id="timer"></span></time>
+            </p>
+        </div>
+    </header>
+
+<!--Container section includes the quiz title and houses the rules along with the start button-->
+<main>
+    <section class="container">
+        <h2 class="title">JavaScript Quiz Challenge</h2>
+    <!--h1 class="title">JavaScript Quiz Challenge </h1> -->
+    <p><strong>Put your knowledge to the test using this JavaScript Quiz!</strong><br>
+        <br>
+        Try to answer the following questions correctly within the given time limit to make it to the top of the leaderboard!
+        <br>
+        Each incorrectly answered question will result in a 10 second penalty.<br>
+        <br>
+        <strong>Good Luck!!</strong> 
+    </p>
+    <button id="start-quiz">Start Quiz!</button>
+    </section>
+
+
+
+</main>
+
+    <script src="Assets/js/script.js"></script>
+</body>
+</html>
