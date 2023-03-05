@@ -1,96 +1,156 @@
 //List all questions, choices and answers
 var questions = [
     {
-        questionText: "What Section of the HTML file can a JavaScript file be added?"
-        choices: [
-            "1. The <body> section ",
-            "2. The <head> section",
-            "3. The <meta> section",
-            "4. Both the <body> and <head> sections",
+        prompt: "What Section of the HTML file can a JavaScript file be added?",
+        options: [
+            "The <body> section ",
+            "The <head> section",
+            "The <meta> section",
+            "Both the <body> and <head> sections",
         ],
-        answer: "4. Both the <body> and <head> sections",
+        answer: "Both the <body> and <head> sections",
     },
     {
-        questionText: "Inside which HTML element is JavaScript stored?"
-        choices: [
-            "1. <js> ",
-            "2. <head>",
-            "3. <script>",
-            "4. None of the above",
+        prompt: "Inside which HTML element is JavaScript stored?",
+        options: [
+            "<js> ",
+            "<head>",
+            "<script>",
+            "None of the above",
         ],
-        answer: "3. <script>",
+        answer: "<script>",
     },
     {
-        questionText: "What is a useful syntax/tool to use in JavaScript to print content on browser console to check for errors?"
-        choices: [
-            "1. console.log ",
-            "2. ConsoleLog()",
-            "3. CoLog",
-            "4. JavaScript",
+        prompt: "What is a useful syntax/tool to use in JavaScript to print content on browser console to check for errors?",
+        options: [
+            "console.log",
+            "ConsoleLog()",
+            "CoLog",
+            "JavaScript",
         ],
-        answer: "1. console.log", 
+        answer: "console.log", 
     },
     {
-        questionText: "Arrays can be used to store __________ "
-        choices: [
-            "1. Numbers ",
-            "2. Strings",
-            "3. Boolean",
-            "4. All of the Above",
+        prompt: "Arrays can be used to store __________ ",
+        options: [
+            "Numbers ",
+            "Strings",
+            "Boolean",
+            "All of the Above",
         ],
-        answer: "4. All of the Above", 
+        answer: "All of the Above", 
     },
     {
-        questionText: "What is getItem commonly used for? "
-        choices: [
-            "1. Naming an object ",
-            "2. Local Storage",
-            "3. ToDo List",
-            "4. Calling a function",
+        prompt: "What is getItem commonly used for? ",
+        options: [
+            "Naming an object ",
+            "Local Storage",
+            "ToDo List",
+            "Calling a function",
         ],
-        answer: "2. Local Storage", 
+        answer: "Local Storage", 
     },
     {
-        questionText: "What is the syntax to call a function? "
-        choices: [
-            "1. function() ",
-            "2. function {}",
-            "3. const Function()",
-            "4. var = call function",
+        prompt: "What is the syntax to call a function? ",
+        options: [
+            "function()",
+            "function {}",
+            "const Function()",
+            "var = call function",
         ],
-        answer: "1. function()", 
+        answer: "function()", 
     },
     
 ];
 
 
+//Get DOM Elements
+var questionsA = document.querySelector("#questions");
+var timerA = document.querySelector("#timer");
+var choicesA = document.querySelector("#options");
+var submitBtn = document.querySelector("#submit-score");
+var startBtn = document.querySelector("#start");
+var nameA = document.querySelector("#userName");
+var resultA = document.querySelector("#result");
+
 // declaring global values for score and timer functions
-var score =0;
-var currentQuestion= -1;
-var timeLeft = 0;
-var timer;
+var currentQuestionIndex= 0;
+var time = questions.length * 15;
+var timerId;
 
-//Function to start quiz, once start has been clicked then timer starts
-function () {
-    timeLeft = 100;
-    document.getElementById("timer").innerHTML = timeLeft;
+//onclick button to start quiz
+startBtn.onclick = StartQuiz;
 
-    timer = setInterval(function() {
-        timeLeft--;
-        document.getElementById("timer").innerHTML = timeLeft;
+//Function to start quiz, once start has been clicked then timer starts and front page disappears
+function StartQuiz() {
+    timerId = setInterval(clockTick, 1000);
+    timerA.textContent = time;
+    var landingScreen = document.getElementById("start-screen");
+    landingScreen.setAttribute("class", "hide");
+    questionsA.removeAttribute("class");
+    getQuestion();
 
-        //If timer reaches 0, game ends
-        if (timeLeft <=0) {
-            clearInterval(timer);
-            endgame();
-        }
-    }, 1000);
 }
 
-//get Dom Elements/Define variables from HTML
+// Loop through listed questions and create list with buttons
 
+function getQuestion() {
+    var currentQuestion= questions[currentQuestionIndex];
+    var promptE = document.getElementById("question-words")
+    promptE.textContent = currentQuestion.prompt;
+    choicesA.innerHTML = "";
+    currentQuestion.options.forEach(function(choice, i) {
+        var choiceBtn = document.createElement("button");
+        choiceBtn.setAttribute("value", choice);
+        choiceBtn.textContent = i + 1 + " . " + choice;
+        choiceBtn.onclick= playGame;
+        choicesA.appendChild(choiceBtn);
+    });
+   
+}
+    
+//Checks for right answer, if the wrong answer is selected time is deducted
 
+function playGame() {
+    if (this.value !== questions[currentQuestionIndex].answer) {
+        time -= 10;
+        if (time < 0) {
+            time = 0;
+        }
+        timerA.textContent = time;
+        resultA.textContent = "Incorrect";
+        resultA.getElementsByClassName.color ="black";
+    } else {
+        resultA.textContent = "Correct!";
+        resultA.style.color = "green";
+    }
+    resultA.setAttribute("class", "result");
+    setTimeout(function() {
+        resultA.setAttribute("class", "hide-result");
+    }, 2000);
+    currentQuestionIndex++;
+    if (currentQuestionIndex === questions.length) {
+        quizEnd();
+    } else {
+        getQuestion();
+    }
+ }
 
-//Set attributes as hidden
+ //Quiz will when the timer stops and the final score appears
 
-//
+ function quizEnd() {
+    clearInterval(timerId);
+    var endScreen = document.getElementById("quiz-end");
+    endScreen.removeAttribute("class");
+    var finalScore= document.getElementById("final-score");
+    finalScore.textContent = time;
+    questionsA.setAttribute("class", "hide");
+ }
+
+ function clockTick() {
+    time--;
+    timerA.textContent = time;
+    if (time <= 0) {
+        quizEnd();
+    }
+ }
