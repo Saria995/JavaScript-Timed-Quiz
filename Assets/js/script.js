@@ -122,7 +122,7 @@ function playGame() {
         resultA.getElementsByClassName.color ="black";
     } else {
         resultA.textContent = "Correct!";
-        resultA.style.color = "green";
+        resultA.style.color = "black";
     }
     resultA.setAttribute("class", "result");
     setTimeout(function() {
@@ -154,3 +154,32 @@ function playGame() {
         quizEnd();
     }
  }
+
+ //Store user initials and score when submit-score button is clicked
+ function saveHighscore() {
+    var name = nameA.value.trim();
+    if (name !== "") {
+        var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+        var newScore = {
+            score: time,
+            name: name
+        };
+        highscores.push(newScore);
+        window.localStorage.setItem("highscores",JSON.stringify(highscores));
+    }
+ }
+
+ //Save score after pressing enter
+
+ function checkEnter(event) {
+    if (event.key === "Enter") {
+        saveHighscore();
+    }
+ }
+ nameA.onkeyup= checkEnter;
+
+ //Save score after pressing submit
+
+ submitBtn.onclick = saveHighscore;
+
+
