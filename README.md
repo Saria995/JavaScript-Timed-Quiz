@@ -50,3 +50,4 @@ THEN I can save my initials and my score
 
 ## Link to Deployed Site
 
+https://saria995.github.io/JavaScript-Timed-Quiz/
