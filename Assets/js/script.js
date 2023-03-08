@@ -145,6 +145,7 @@ function playGame() {
     var finalScore= document.getElementById("final-score");
     finalScore.textContent = time;
     questionsA.setAttribute("class", "hide");
+    resultA.textContent = "";
  }
 
  function clockTick() {
@@ -174,6 +175,7 @@ function playGame() {
  function checkEnter(event) {
     if (event.key === "Enter") {
         saveHighscore();
+        alert("Name has been submitted! Check out the Highscore board!");
     }
  }
  nameA.onkeyup= checkEnter;
